@@ -17,7 +17,7 @@ public class ProductDAOImpl implements IProduitDao{
     }
 
     @Override
-    public Produit getProduitById(long id) throws SQLException {
+    public Produit getProduitById(long id) {
         try {
             Connection connection = DriverManager.getConnection(url, username, password);
             String query = "SELECT * FROM produits WHERE ?";
@@ -31,15 +31,33 @@ public class ProductDAOImpl implements IProduitDao{
                 produit.setId(resultSet.getLong("id"));
                 produit.setNom(resultSet.getString("nom"));
             }
+            return produit;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            throw e;
+            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     @Override
     public void saveProduit(Produit produit) {
-
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+            if (produit.getId() != null) {
+                String query = "UPDATE produits set nom = ? WHERE id = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, produit.getNom());
+                preparedStatement.setLong(2, produit.getId());
+                preparedStatement.execute();
+            } else {
+                String query = "INSERT produits (nom) VALUES (?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, produit.getNom());
+                preparedStatement.execute();
+            }
+            System.out.println(produit.getNom() + " est maintenant sauvegardé dans la BD");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Impossible de sauvegarder");
+        }
     }
 }

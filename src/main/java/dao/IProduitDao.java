@@ -12,7 +12,7 @@ public interface IProduitDao {
      * @param id id du produit à rechercher
      * @return objet Produit du produit rechercher
      */
-    Produit getProduitById(long id) throws SQLException;
+    Produit getProduitById(long id);
 
     /**
      * Sauvegarde un produit dans la BD
