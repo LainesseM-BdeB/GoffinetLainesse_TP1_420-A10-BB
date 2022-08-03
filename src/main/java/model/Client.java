@@ -13,6 +13,12 @@ public class Client {
     public Client() {
     }
 
+    public Client(int no_client, String nom_client, String no_telephone) {
+        this.no_client = no_client;
+        this.nom_client = nom_client;
+        this.no_telephone = no_telephone;
+    }
+
     public int getNo_client() {
         return no_client;
     }

@@ -1,20 +1,26 @@
 package control;
 
-import dao.IProduitDao;
-import dao.ProductDAOImpl;
-import model.Produit;
+import dao.ArticleDAO;
+import dao.ClientDAO;
+import dao.CommandeDAO;
+import model.Article;
+import model.Client;
+import model.Commande;
 
 public class Main {
 
     public static void main(String[] args) {
-	    String url = "jdbc:mysql://localhost:3306/demo";
+	    String url = "jdbc:mysql://localhost:3306/vente";
         String username = "root";
         String password = "";
 
-        Produit produit = new Produit();
-        produit.setNom("AMD Ryzen 10 12X");
+        ArticleDAO articleDAO = new ArticleDAO(url, username, password);
+        articleDAO.insererLigne(new Article(85, "Dattier", 31.99, 10));
 
-        IProduitDao iProduitDao = new ProductDAOImpl(url, username, password);
-        System.out.println(iProduitDao.getProduitById(3L));
+        ClientDAO clientDAO = new ClientDAO(url, username, password);
+        clientDAO.insererLigne(new Client(90, "Jean Dupond", "(222)222-2222"));
+
+        CommandeDAO commandeDAO = new CommandeDAO(url, username, password);
+        commandeDAO.insererLigne(new Commande(9, "2000-07-16", 90));
     }
 }

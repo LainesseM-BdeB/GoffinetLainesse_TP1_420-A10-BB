@@ -15,6 +15,13 @@ public class Article {
     public Article() {
     }
 
+    public Article(int no_article, String description, double prix_unitaire, int quantite_en_stock) {
+        this.no_article = no_article;
+        this.description = description;
+        this.prix_unitaire = prix_unitaire;
+        this.quantite_en_stock = quantite_en_stock;
+    }
+
     public int getNo_article() {
         return no_article;
     }

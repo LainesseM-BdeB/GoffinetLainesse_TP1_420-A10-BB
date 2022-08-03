@@ -14,6 +14,12 @@ public class Commande {
     public Commande() {
     }
 
+    public Commande(int no_commande, String date_commande, int no_client) {
+        this.no_commande = no_commande;
+        this.date_commande = date_commande;
+        this.no_client = no_client;
+    }
+
     public int getNo_commande() {
         return no_commande;
     }
