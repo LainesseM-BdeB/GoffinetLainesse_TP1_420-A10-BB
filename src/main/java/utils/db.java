@@ -8,7 +8,7 @@ public class db {
 
     private String url = "jdbc:mysql://localhost:3306/vente";
     private String username = "root";
-    private String password = "^5R7&R737#MJ8&B!*r$qF&46";
+    private String password = "";
 
     private static Connection connection;
 
@@ -19,8 +19,6 @@ public class db {
             throw new RuntimeException(e);
         }
     }
-
-
 
     public static Connection getConnection() {
         if (connection == null) {

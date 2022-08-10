@@ -10,6 +10,7 @@ public class Commande {
     private int no_commande;
     private String date_commande;
     private int no_client;
+    private Client client;
 
     public Commande() {
     }
@@ -32,6 +33,10 @@ public class Commande {
         return no_client;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
     public void setNo_commande(int no_commande) {
         this.no_commande = no_commande;
     }
@@ -42,5 +47,9 @@ public class Commande {
 
     public void setNo_client(int no_client) {
         this.no_client = no_client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

@@ -24,7 +24,11 @@ public class ClientDAO extends ACommonDAO {
         return false;
     }
 
-    @Override
+    /**
+     * Mise à jour de l'objet "Client"
+     * @param object article
+     * @return true si l'objet a été mis à jour
+     */@Override
     public boolean update(Object object) {
 
         Client client = (Client) object;

@@ -21,6 +21,11 @@ public class ArticleDAO extends ACommonDAO {
         return false;
     }
 
+    /**
+     * Mise à jour de l'objet "Article"
+     * @param object article
+     * @return true si l'objet a été mis à jour
+     */
     @Override
     public boolean update(Object object) {
 

@@ -1,5 +1,6 @@
 package dao;
 
+import model.Client;
 import model.Commande;
 
 import java.sql.Connection;
@@ -9,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CommandeDAO extends ACommonDAO {
+// référence à la clé étrangère
+    private Commande commande;
+    private Client client; // jointure: faire référence à la classe client à partir de cette classe
 
     public CommandeDAO(Connection connection) {
         super(connection);
@@ -24,6 +28,11 @@ public class CommandeDAO extends ACommonDAO {
         return false;
     }
 
+    /**
+     * Mise à jour de l'objet "Commande"
+     * @param object commande
+     * @return true si l'objet a été mis à jour
+     */
     @Override
     public boolean update(Object object) {
         Commande commande = (Commande) object;
