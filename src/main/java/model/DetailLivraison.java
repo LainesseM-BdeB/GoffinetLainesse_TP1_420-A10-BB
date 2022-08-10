@@ -6,17 +6,17 @@ package model;
 * @since 2022/08/03
 */
 
-public class Detail_Livraison {
+public class DetailLivraison {
 
     private int noLivraison;
     private int noCommande;
     private int noArticle;
     private int quantiteLivree;
 
-    public Detail_Livraison() {
+    public DetailLivraison() {
     }
 
-    public Detail_Livraison(int noLivraison, int noCommande, int noArticle, int quantiteLivree) {
+    public DetailLivraison(int noLivraison, int noCommande, int noArticle, int quantiteLivree) {
         this.noLivraison = noLivraison;
         this.noCommande = noCommande;
         this.noArticle = noArticle;

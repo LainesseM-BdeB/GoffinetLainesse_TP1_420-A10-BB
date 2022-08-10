@@ -6,16 +6,16 @@ package model;
  * @since 2022/08/03
  */
 
-public class Ligne_Commande {
+public class LigneCommande {
 
     private int noCommande;
     private int noArticle;
     private int quantite;
 
-    public Ligne_Commande() {
+    public LigneCommande() {
     }
 
-    public Ligne_Commande(int noCommande, int noArticle, int quantite) {
+    public LigneCommande(int noCommande, int noArticle, int quantite) {
         this.noCommande = noCommande;
         this.noArticle = noArticle;
         this.quantite = quantite;
