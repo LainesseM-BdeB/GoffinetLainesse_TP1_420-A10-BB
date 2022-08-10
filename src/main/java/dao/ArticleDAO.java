@@ -3,33 +3,63 @@ package dao;
 import model.Article;
 
 import java.sql.*;
+import java.util.ArrayList;
 
-public class ArticleDAO {
-    private String url;
-    private String username;
-    private String password;
+public class ArticleDAO extends ACommonDAO {
 
-    public ArticleDAO(String url, String username, String password) {
-        this.url = url;
-        this.username = username;
-        this.password = password;
+    public ArticleDAO(Connection connection) {
+        super(connection);
     }
 
-    public void insererLigne(Article article) {
+    @Override
+    public Object create(Object object) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(Object object) {
+        return false;
+    }
+
+    @Override
+    public boolean update(Object object) {
+
+        Article article = (Article) object;
+        String query = "INSERT INTO article VALUES (?, ?, ?, ?)";
+        PreparedStatement preparedStatement = null;
+
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
-            String requete = "INSERT INTO article VALUES (?, ?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(requete);
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, article.getNo_article());
             preparedStatement.setString(2, article.getDescription());
             preparedStatement.setDouble(3, article.getPrix_unitaire());
             preparedStatement.setInt(4, article.getQuantite_en_stock());
-            preparedStatement.execute();
-            System.out.println(article.getDescription() + " est maintenant sauvegardé dans la BD");
+            preparedStatement.executeUpdate();
+            System.out.println("Article inséré.");
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Impossible de sauvegarder");
+            return false;
         }
     }
 
+    @Override
+    public Object findByID(int id) {
+        return null;
+    }
+
+    @Override
+    public Object findByName(String name) {
+        return null;
+    }
+
+    @Override
+    public Object findByValues(double value1, double value2) {
+        return null;
+    }
+
+    @Override
+    public ArrayList findAll() {
+        return null;
+    }
 }
