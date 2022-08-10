@@ -16,10 +16,6 @@ import java.time.LocalDate;
 public class Main {
 
     public static void main(String[] args) {
-	    String url = "jdbc:mysql://localhost:3306/vente";
-        String username = "root";
-        String password = "^5R7&R737#MJ8&B!*r$qF&46";
-
 //        ArticleDAO articleDAO = new ArticleDAO(url, username, password);
 //        articleDAO.insererLigne(new Article(85, "Dattier", 31.99, 10));
 //
@@ -31,7 +27,7 @@ public class Main {
 
         LivraisonDAOImpl livraisonDAO = new LivraisonDAOImpl();
         try {
-            livraisonDAO.getLivraisonByNoLivraison(db.connectToDB(url, username, password), 100);
+            livraisonDAO.getLivraisonByNoLivraison(db.getConnection(), 100);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -39,7 +35,7 @@ public class Main {
         Livraison livraisonTest = new Livraison(999, LocalDate.now());
 
         try {
-            livraisonDAO.insertLivraison(db.connectToDB(url, username, password), livraisonTest);
+            livraisonDAO.insertLivraison(db.getConnection(), livraisonTest);
         } catch (SQLException e) {
             e.printStackTrace();
         }

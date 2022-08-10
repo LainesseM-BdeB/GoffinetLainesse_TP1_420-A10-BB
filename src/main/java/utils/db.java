@@ -6,7 +6,30 @@ import java.util.HashMap;
 
 public class db {
 
-    public static Connection connectToDB(String url,String user,String password) throws SQLException {
+    private String url = "jdbc:mysql://localhost:3306/vente";
+    private String username = "root";
+    private String password = "^5R7&R737#MJ8&B!*r$qF&46";
+
+    private static Connection connection;
+
+    private db() {
+        try {
+            connection = connectToDB(this.url, this.username, this.password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    public static Connection getConnection() {
+        if (connection == null) {
+            new db();
+        }
+        return connection;
+    }
+
+    private static Connection connectToDB(String url, String user, String password) throws SQLException {
         return DriverManager.getConnection(url, user, password);
     }
 

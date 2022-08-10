@@ -14,7 +14,9 @@ public class LivraisonDAOImpl implements ILivraisonDAO{
 
     @Override
     public void insertLivraison(Connection conn, Livraison livraison) throws SQLException {
-        PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO livraison (nolivraison, datelivraison) VALUES (?,?);");
+        PreparedStatement preparedStatement = conn.prepareStatement(
+                "INSERT INTO livraison (nolivraison, datelivraison) VALUES (?,?);"
+        );
 
         preparedStatement.setInt(1, livraison.getNoLivraison());
         preparedStatement.setDate(2, Date.valueOf(livraison.getDateLivraison()));
@@ -25,7 +27,9 @@ public class LivraisonDAOImpl implements ILivraisonDAO{
 
     @Override
     public void getLivraisonByNoLivraison(Connection conn, int noLivraison) throws SQLException {
-        PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM livraison WHERE noLivraison = ?;");
+        PreparedStatement preparedStatement = conn.prepareStatement(
+                "SELECT * FROM livraison WHERE noLivraison = ?;"
+        );
 
         preparedStatement.setInt(1, noLivraison);
 
