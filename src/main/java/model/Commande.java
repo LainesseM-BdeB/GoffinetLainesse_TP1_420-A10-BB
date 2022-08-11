@@ -21,6 +21,10 @@ public class Commande {
         this.no_client = no_client;
     }
 
+    public Commande(int no_commande) {
+        this.no_commande = no_commande;
+    }
+
     public int getNo_commande() {
         return no_commande;
     }

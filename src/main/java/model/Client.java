@@ -19,6 +19,11 @@ public class Client {
         this.no_telephone = no_telephone;
     }
 
+    public Client(int no_client, String no_telephone) {
+        this.no_client = no_client;
+        this.no_telephone = no_telephone;
+    }
+
     public int getNo_client() {
         return no_client;
     }
