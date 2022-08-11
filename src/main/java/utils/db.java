@@ -8,7 +8,7 @@ public class db {
 
     private String url = "jdbc:mysql://localhost:3306/vente";
     private String username = "root";
-    private String password = "Philosophie0883";
+    private String password = "";
 
     private static Connection connection;
 
