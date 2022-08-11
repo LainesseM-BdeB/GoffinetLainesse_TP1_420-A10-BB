@@ -111,5 +111,6 @@ public class CommandeDAO extends ACommonDAO {
             System.out.printf("%-10d ", commande.getNo_client());
             System.out.print("\n");
         }
+        System.out.print("\n");
     }
 }

@@ -122,5 +122,6 @@ public class ClientDAO extends ACommonDAO {
             System.out.printf("%-20s ", client.getNo_telephone());
             System.out.print("\n");
         }
+        System.out.print("\n");
     }
 }

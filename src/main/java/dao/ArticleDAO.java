@@ -32,7 +32,7 @@ public class ArticleDAO extends ACommonDAO {
     public boolean update(Object object) {
 
         Article article = (Article) object;
-        String query = "INSERT INTO article VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO article VALUES (?, ?, ?, ?);";
         PreparedStatement preparedStatement = null;
 
         try {
@@ -113,6 +113,7 @@ public class ArticleDAO extends ACommonDAO {
             System.out.printf("%-10d ", article.getQuantite_en_stock());
             System.out.print("\n");
         }
+        System.out.print("\n");
     }
 
     /**
@@ -126,7 +127,7 @@ public class ArticleDAO extends ACommonDAO {
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, lettre + "%");
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
             System.out.println("Articles débutant par la lettre \"" + lettre + "\" :");
             afficherListe(getListOfResults(resultSet));
         } catch (SQLException e) {
