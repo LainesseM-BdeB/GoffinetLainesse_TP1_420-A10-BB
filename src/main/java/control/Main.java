@@ -25,15 +25,15 @@ public class Main {
         Connection connection = db.getConnection();
 
         // Tests d'insertion pour chacune des tables (a.)
-
-        ArticleDAO articleDAO = new ArticleDAO(connection);
-        articleDAO.update(new Article(85, "Dattier", 31.99, 10));
-
-        ClientDAO clientDAO = new ClientDAO(connection);
-        clientDAO.update(new Client(90, "Jean Dupond", "(222)222-2222"));
-
-        CommandeDAO commandeDAO = new CommandeDAO(connection);
-        commandeDAO.update(new Commande(9, "2000-07-16", 90));
+//
+//        ArticleDAO article1 = new ArticleDAO(connection);
+//        article1.update(new Article(85, "Dattier", 31.99, 10));
+//
+//        ClientDAO client1 = new ClientDAO(connection);
+//        client1.update(new Client(90, "Jean Dupond", "(222)222-2222"));
+//
+//        CommandeDAO commande1 = new CommandeDAO(connection);
+//        commande1.update(new Commande(9, "2000-07-16", 90));
 
 //        LivraisonDAOImpl livraisonDAO = new LivraisonDAOImpl();
 //        try {
@@ -51,6 +51,13 @@ public class Main {
 //        }
 
         // Tests de sélection (b.)
+
+
+        ArticleDAO article2 = new ArticleDAO(connection);
+        // 3.
+        article2.afficherArticlesDebutantParLettre("C");
+        // 4.
+        article2.afficherArticlesPrixSuperieurAMoyenne();
 
     }
 }

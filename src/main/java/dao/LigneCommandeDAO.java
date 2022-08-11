@@ -6,6 +6,7 @@ import utils.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -64,5 +65,15 @@ public class LigneCommandeDAO extends ACommonDAO{
     @Override
     public ArrayList findAll() {
         return null;
+    }
+
+    @Override
+    public ArrayList getListOfResults(ResultSet resultSet) {
+        return null;
+    }
+
+    @Override
+    public void afficherListe(ArrayList liste) {
+
     }
 }

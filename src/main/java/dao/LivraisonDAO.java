@@ -3,10 +3,7 @@ package dao;
 import model.Livraison;
 import utils.db;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class LivraisonDAO extends ACommonDAO{
@@ -64,5 +61,15 @@ public class LivraisonDAO extends ACommonDAO{
     @Override
     public ArrayList<Object> findAll() {
         return null;
+    }
+
+    @Override
+    public ArrayList getListOfResults(ResultSet resultSet) {
+        return null;
+    }
+
+    @Override
+    public void afficherListe(ArrayList liste) {
+
     }
 }

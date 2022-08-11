@@ -1,17 +1,21 @@
 package dao;
 
+import model.Article;
 import model.Client;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class ClientDAO extends ACommonDAO {
 
+    private Client client;
+
     public ClientDAO(Connection connection) {
         super(connection);
+    }
+
+    public Client getClient() {
+        return client;
     }
 
     @Override
@@ -50,6 +54,15 @@ public class ClientDAO extends ACommonDAO {
 
     @Override
     public Object findByID(int id) {
+         String query = "SELECT * FROM client WHERE no_client = " + id;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            return resultSet;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -66,5 +79,48 @@ public class ClientDAO extends ACommonDAO {
     @Override
     public ArrayList findAll() {
         return null;
+    }
+
+    /**
+     * Obtention de la liste des clients de la base de données
+     * @param resultSet
+     * @return liste des clients obtenus de la base de données
+     */
+    @Override
+    public ArrayList getListOfResults(ResultSet resultSet) {
+        ArrayList<Object> clients = new ArrayList<>();
+
+        while (true) {
+            try {
+                while(resultSet.next()) {
+                    int no_client = resultSet.getInt("no_client");
+                    String nom_client = resultSet.getString("nom_client");
+                    String no_telephone = resultSet.getString("no_telephone");
+
+                    Client client = new Client(no_client, nom_client, no_telephone);
+
+                    clients.add(client);
+                }
+                return clients;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Affichage dans la console de la liste des clients
+     * @param liste des clients
+     */
+    @Override
+    public void afficherListe(ArrayList liste) {
+        System.out.printf("\t %-10s | %-20s | %-20s\n", "No client", "Nom client", "No téléphone");
+        for (Object object: liste) {
+            Client client = (Client) object;
+            System.out.printf("\t %-10d | ", client.getNo_client());
+            System.out.printf("%-20s | ", client.getNom_client());
+            System.out.printf("%-20s ", client.getNo_telephone());
+            System.out.print("\n");
+        }
     }
 }
