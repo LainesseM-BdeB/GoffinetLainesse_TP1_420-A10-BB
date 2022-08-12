@@ -65,17 +65,18 @@ public class Main {
 
         ArticleDAO articleB = new ArticleDAO(connection);
         CommandeDAO commandeB = new CommandeDAO(connection);
-        DetailLivraisonDAO detailLivraisonDAO = new DetailLivraisonDAO(connection);
+        ClientDAO clientDAO = new ClientDAO(connection);
         //1.
         commandeB.afficherCommandesClient(10, 5);
         //2.
         commandeB.afficherClientsSelonDateCommandes("04/06/2000");
-        // 3.
+        //3.
         articleB.afficherArticlesDebutantParLettre("C");
-        // 4.
+        //4.
         articleB.afficherArticlesPrixSuperieurAMoyenne();
-        // 5.
+        //5.
         commandeB.afficherListeCommandeAvecNoLivraison();
-        System.out.println("Just a break");
+        //6.
+        clientDAO.afficherListeClientSansCommande();
     }
 }

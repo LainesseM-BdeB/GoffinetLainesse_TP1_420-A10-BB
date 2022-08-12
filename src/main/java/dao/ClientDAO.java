@@ -1,9 +1,11 @@
 package dao;
 
 import model.Client;
+import model.Commande;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ClientDAO extends ACommonDAO {
 
@@ -66,8 +68,59 @@ public class ClientDAO extends ACommonDAO {
     }
 
     @Override
-    public ArrayList findAll() {
-        return null;
+    public ArrayList<Client> findAll() {
+        ArrayList<Client> clients = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT no_client, nom_client, no_telephone FROM client;"
+            );
+
+            ResultSet result = preparedStatement.executeQuery();
+
+            while (result.next()) {
+                Client client = new Client(
+                        result.getInt(1),
+                        result.getString(2),
+                        result.getString(3)
+                );
+                clients.add(client);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return clients;
+    }
+
+    // pour question b-6
+    public HashSet<Client> getListeClientSansCommande() {
+         CommandeDAO commandeDAO = new CommandeDAO(connection);
+         ArrayList<Client> clients = this.findAll();
+         ArrayList<Commande> commandes = commandeDAO.findAll();
+
+        HashSet<Client> clientsSansCommande = new HashSet<>();
+        HashSet<Integer> noClientAvecCommande = new HashSet<>();
+
+        for (Commande commande : commandes) {
+            noClientAvecCommande.add(commande.getNo_client());
+        }
+
+        for (Client client : clients) {
+            if (!noClientAvecCommande.contains(client.getNo_client())) {
+                clientsSansCommande.add(client);
+            }
+        }
+        return clientsSansCommande;
+    }
+
+    // pour question b-6
+    public void afficherListeClientSansCommande() {
+         HashSet<Client> clientsSansCommande = this.getListeClientSansCommande();
+
+        System.out.println("\nListe des clients sans commandes (no_client, no_telephone");
+         for (Client client : clientsSansCommande) {
+             System.out.printf("Client #%d - %s\n", client.getNo_client(), client.getNo_telephone());
+         }
     }
 
     /**

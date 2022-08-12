@@ -89,6 +89,9 @@ public class CommandeDAO extends ACommonDAO {
     public void afficherListeCommandeAvecNoLivraison() {
         ArrayList<Commande> commandes = this.findAll();
         DetailLivraisonDAO detailLivraisonDAO = new DetailLivraisonDAO(connection);
+
+        System.out.println("Liste des commandes et de leur numéro de livraion si applicable");
+
         for (Commande commande : commandes) {
             ArrayList<DetailLivraison> detailLivraisons = detailLivraisonDAO.findByIDCommande(commande.getNo_commande());
             System.out.printf("Commande #%d - Numéros de Livraison: ", commande.getNo_commande());
