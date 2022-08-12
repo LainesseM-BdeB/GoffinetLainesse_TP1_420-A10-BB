@@ -1,8 +1,6 @@
 package dao;
 
-import model.DetailLivraison;
 import model.LigneCommande;
-import utils.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,13 +30,13 @@ public class LigneCommandeDAO extends ACommonDAO{
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO lignecommande (nocommande, noarticle, quantite) VALUES (?,?,?);"
+                    "INSERT INTO ligne_commande (no_commande, no_article, quantite) VALUES (?,?,?);"
             );
             preparedStatement.setInt(1, detailLivraison.getNoCommande());
             preparedStatement.setInt(2, detailLivraison.getNoArticle());
             preparedStatement.setInt(3, detailLivraison.getQuantite());
 
-            db.insertQuery(preparedStatement);
+            preparedStatement.executeUpdate();
             System.out.println("LigneCommande Insérée.");
             return true;
         } catch (SQLException e) {
@@ -49,16 +47,6 @@ public class LigneCommandeDAO extends ACommonDAO{
 
     @Override
     public Object findByID(int id) {
-        return null;
-    }
-
-    @Override
-    public Object findByName(String name) {
-        return null;
-    }
-
-    @Override
-    public Object findByValues(double value1, double value2) {
         return null;
     }
 

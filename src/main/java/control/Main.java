@@ -1,18 +1,14 @@
 package control;
 
-import dao.ArticleDAO;
-import dao.ClientDAO;
-import dao.CommandeDAO;
-import dao.LivraisonDAOImpl;
-import model.Article;
-import model.Client;
-import model.Commande;
-import model.Livraison;
+import dao.*;
+import model.*;
 import utils.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.TreeSet;
 
 /**
  * Cette application permet de manipuler les données des tables de la base de données "ventes"
@@ -50,11 +46,26 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
+        // Test pour l'insertion d'une nouvelle livraison dans la base de données
+        LivraisonDAO livraisonDAO = new LivraisonDAO(connection);
+        Livraison livraisonTestInsertion = new Livraison(106, LocalDate.now());
+        boolean success = livraisonDAO.update(livraisonTestInsertion);
+
+        if (!success) { // Si l'insertion ne fonctionne pas à cause d'un duplicata, le DAO supprime l'entrée et ajoute la nouvelle.
+            livraisonDAO.delete(livraisonTestInsertion);
+            livraisonDAO.update(livraisonTestInsertion);
+        }
+
+        //Recherche dans la BD la nouvelle insertion et affiche les informations si elle la trouve.
+        System.out.println(livraisonDAO.findByID(106));
+        System.out.println("Just a break"); //Juste une place ou mettre mon break
+
         // Tests de sélection (b.)
 
 
         ArticleDAO articleB = new ArticleDAO(connection);
         CommandeDAO commandeB = new CommandeDAO(connection);
+        DetailLivraisonDAO detailLivraisonDAO = new DetailLivraisonDAO(connection);
         //1.
         commandeB.afficherCommandesClient(10, 5);
         //2.
@@ -63,6 +74,8 @@ public class Main {
         articleB.afficherArticlesDebutantParLettre("C");
         // 4.
         articleB.afficherArticlesPrixSuperieurAMoyenne();
-
+        // 5.
+        commandeB.afficherListeCommandeAvecNoLivraison();
+        System.out.println("Just a break");
     }
 }

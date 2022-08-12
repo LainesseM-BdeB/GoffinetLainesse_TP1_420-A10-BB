@@ -20,11 +20,7 @@ public abstract class ACommonDAO<T> {
 
     public abstract T findByID(int id);
 
-    public abstract T findByName(String name);
-
-    public abstract T findByValues(double value1, double value2);
-
-    public abstract ArrayList<T> findAll();
+    public abstract ArrayList findAll();
 
     /**
      * Obtention de la liste des objets de la base de données

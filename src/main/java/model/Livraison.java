@@ -36,4 +36,12 @@ public class Livraison {
     public void setDateLivraison(LocalDate dateLivraison) {
         this.dateLivraison = dateLivraison;
     }
+
+    @Override
+    public String toString() {
+        return "Livraison{" +
+                "noLivraison=" + noLivraison +
+                ", dateLivraison=" + dateLivraison +
+                '}';
+    }
 }

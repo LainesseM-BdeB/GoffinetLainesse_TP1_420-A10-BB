@@ -2,7 +2,6 @@ package dao;
 
 import model.DetailLivraison;
 import model.Livraison;
-import utils.db;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,14 +29,14 @@ public class DetailLivraisonDAO extends ACommonDAO{
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO detaillivraison (nolivraison, nocommande, noarticle, quantiteLivree) VALUES (?,?,?,?);"
+                    "INSERT INTO detail_livraison (no_livraison, no_commande, no_article, quantite_livree) VALUES (?,?,?,?);"
             );
             preparedStatement.setInt(1, detailLivraison.getNoLivraison());
             preparedStatement.setInt(2, detailLivraison.getNoCommande());
             preparedStatement.setInt(3, detailLivraison.getNoArticle());
             preparedStatement.setInt(4, detailLivraison.getQuantiteLivree());
 
-            db.insertQuery(preparedStatement);
+            preparedStatement.executeUpdate();
             System.out.println("DetailLivraison Insérée.");
             return true;
         } catch (SQLException e) {
@@ -52,18 +51,37 @@ public class DetailLivraisonDAO extends ACommonDAO{
     }
 
     @Override
-    public Object findByName(String name) {
+    public ArrayList findAll() {
         return null;
     }
 
-    @Override
-    public Object findByValues(double value1, double value2) {
-        return null;
-    }
+    public ArrayList<DetailLivraison> findByIDCommande(int id) {
+        ArrayList<DetailLivraison> detailLivraisons = new ArrayList<>();
 
-    @Override
-    public ArrayList<Object> findAll() {
-        return null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT no_livraison, no_commande, no_article, quantite_livree FROM detail_livraison WHERE no_commande = ?;"
+            );
+            preparedStatement.setInt(1, id);
+
+            ResultSet result = preparedStatement.executeQuery();
+
+
+            while (result.next()) {
+                DetailLivraison detailLivraison = new DetailLivraison();
+                detailLivraison.setNoLivraison(result.getInt(1));
+                detailLivraison.setNoCommande(result.getInt(2));
+                detailLivraison.setNoArticle(result.getInt(3));
+                detailLivraison.setQuantiteLivree(result.getInt(4));
+
+                detailLivraisons.add(detailLivraison);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Aucune Livraison n'existe");
+        }
+
+        return detailLivraisons;
     }
 
     @Override

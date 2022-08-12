@@ -1,6 +1,5 @@
 package dao;
 
-import model.Article;
 import model.Client;
 
 import java.sql.*;
@@ -63,16 +62,6 @@ public class ClientDAO extends ACommonDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
-    }
-
-    @Override
-    public Object findByName(String name) {
-        return null;
-    }
-
-    @Override
-    public Object findByValues(double value1, double value2) {
         return null;
     }
 

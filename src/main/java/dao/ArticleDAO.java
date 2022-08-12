@@ -56,16 +56,6 @@ public class ArticleDAO extends ACommonDAO {
     }
 
     @Override
-    public Object findByName(String name) {
-        return null;
-    }
-
-    @Override
-    public Object findByValues(double value1, double value2) {
-        return null;
-    }
-
-    @Override
     public ArrayList findAll() {
         return null;
     }

@@ -1,11 +1,13 @@
 package dao;
 
-import model.Article;
 import model.Client;
 import model.Commande;
+import model.DetailLivraison;
+import model.Livraison;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class CommandeDAO extends ACommonDAO {
 
@@ -57,20 +59,54 @@ public class CommandeDAO extends ACommonDAO {
         return null;
     }
 
+    //Servira pour la question b-5
     @Override
-    public Object findByName(String name) {
-        return null;
+    public ArrayList<Commande> findAll() {
+        ArrayList<Commande> commandes = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT no_commande, date_commande, no_client FROM commande;"
+            );
+
+            ResultSet result = preparedStatement.executeQuery();
+
+            while (result.next()) {
+                Commande commande = new Commande(
+                        result.getInt(1),
+                        result.getDate(2).toString(),
+                        result.getInt(3)
+                );
+                commandes.add(commande);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return commandes;
     }
 
-    @Override
-    public Object findByValues(double value1, double value2) {
-        return null;
+    //Servira pour la question b-5
+    public void afficherListeCommandeAvecNoLivraison() {
+        ArrayList<Commande> commandes = this.findAll();
+        DetailLivraisonDAO detailLivraisonDAO = new DetailLivraisonDAO(connection);
+        for (Commande commande : commandes) {
+            ArrayList<DetailLivraison> detailLivraisons = detailLivraisonDAO.findByIDCommande(commande.getNo_commande());
+            System.out.printf("Commande #%d - Numéros de Livraison: ", commande.getNo_commande());
+            if (detailLivraisons.size() < 1) {
+                System.out.print("n/a\n");
+            } else {
+                TreeSet<Integer> nosLivraison = new TreeSet<>();
+                for (DetailLivraison detailLivraison : detailLivraisons) {
+                    nosLivraison.add(detailLivraison.getNoLivraison());
+                }
+                for (int noLivraison : nosLivraison) {
+                    System.out.printf("%d ", noLivraison);
+                }
+                System.out.println();
+            }
+        }
     }
 
-    @Override
-    public ArrayList findAll() {
-        return null;
-    }
 
     /**
      * Obtention de la liste des commandes de la base de données

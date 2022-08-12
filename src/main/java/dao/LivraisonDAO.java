@@ -1,7 +1,6 @@
 package dao;
 
 import model.Livraison;
-import utils.db;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,47 +18,75 @@ public class LivraisonDAO extends ACommonDAO{
 
     @Override
     public boolean delete(Object object) {
-        return false;
-    }
-
-    @Override
-    public boolean update(Object object) {
-
         Livraison livraison = (Livraison) object;
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO livraison (nolivraison, datelivraison) VALUES (?,?);"
+                    "DELETE FROM livraison WHERE no_livraison = ?;"
+            );
+            preparedStatement.setInt(1, livraison.getNoLivraison());
+
+            int rows = preparedStatement.executeUpdate();
+            if (rows != 1) {
+                if (rows == 0) {
+                    throw new SQLDataException("There were no row deleted.\n");
+                } else {
+                    throw new SQLDataException("There was too many rows deleted.\n" + rows + " rows were deleted.");
+                }
+            }
+
+            System.out.printf("La livraison #%s à été retirée.\n", livraison.getNoLivraison());
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean update(Object object) {
+        Livraison livraison = (Livraison) object;
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "INSERT INTO livraison (no_livraison, date_livraison) VALUES (?,?);"
             );
             preparedStatement.setInt(1, livraison.getNoLivraison());
             preparedStatement.setDate(2, Date.valueOf(livraison.getDateLivraison()));
 
-            db.insertQuery(preparedStatement);
-            System.out.println("Livraison Insérée.");
+            preparedStatement.executeUpdate();
+            System.out.printf("Livraison #%s Insérée.\n", livraison.getNoLivraison());
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return false;
         }
     }
 
     @Override
     public Object findByID(int id) {
-        return null;
+        Livraison livraison = new Livraison();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT no_livraison, date_livraison FROM livraison WHERE no_livraison = ?;"
+            );
+            preparedStatement.setInt(1, id);
+
+            ResultSet result = preparedStatement.executeQuery();
+
+            result.next();
+            livraison.setNoLivraison(result.getInt(1));
+            livraison.setDateLivraison(result.getDate(2).toLocalDate());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return livraison;
     }
 
     @Override
-    public Object findByName(String name) {
-        return null;
-    }
-
-    @Override
-    public Object findByValues(double value1, double value2) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Object> findAll() {
+    public ArrayList findAll() {
         return null;
     }
 
