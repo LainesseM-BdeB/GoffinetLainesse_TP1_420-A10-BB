@@ -11,18 +11,8 @@ import java.util.TreeSet;
 
 public class CommandeDAO extends ACommonDAO {
 
-    private Commande commande;
-    private Client client;
-
     public CommandeDAO(Connection connection) {
         super(connection);
-    }
-
-
-
-    @Override
-    public Object create(Object object) {
-        return null;
     }
 
     @Override
@@ -56,6 +46,15 @@ public class CommandeDAO extends ACommonDAO {
 
     @Override
     public Object findByID(int id) {
+        String query = "SELECT * FROM commande WHERE no_commande = " + id;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            return resultSet;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -90,7 +89,7 @@ public class CommandeDAO extends ACommonDAO {
         ArrayList<Commande> commandes = this.findAll();
         DetailLivraisonDAO detailLivraisonDAO = new DetailLivraisonDAO(connection);
 
-        System.out.println("Liste des commandes et de leur numéro de livraion si applicable");
+        System.out.println("Liste des commandes et de leur numéro de livraison si applicable :");
 
         for (Commande commande : commandes) {
             ArrayList<DetailLivraison> detailLivraisons = detailLivraisonDAO.findByIDCommande(commande.getNo_commande());
@@ -110,14 +109,13 @@ public class CommandeDAO extends ACommonDAO {
         }
     }
 
-
     /**
      * Obtention de la liste des commandes de la base de données
      * @param resultSet
      * @return liste des commandes obtenues de la base de données
      */
     @Override
-    public ArrayList getListOfResults(ResultSet resultSet) {
+    public ArrayList<Object> getListOfResults(ResultSet resultSet) {
         ArrayList<Object> commandes = new ArrayList<>();
 
         while (true) {
@@ -168,8 +166,15 @@ public class CommandeDAO extends ACommonDAO {
             preparedStatement.setInt(1, no_client);
             preparedStatement.setInt(2, no_commande);
             ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println("Commandes du client no " + no_client +" dont le numéro de commande est supérieur à " + no_commande);
-            afficherListe(getListOfResults(resultSet));
+
+            ArrayList<Object> list = getListOfResults(resultSet);
+
+            if(list.isEmpty()) {
+                System.out.println("Il n'y a pas de commande pour le client no " + no_client + " dont le numéro de commande est supérieur à " + no_commande + ".\n");
+            } else {
+                System.out.println("Commandes du client no " + no_client +" dont le numéro de commande est supérieur à " + no_commande + " :");
+                afficherListe(list);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -189,8 +194,15 @@ public class CommandeDAO extends ACommonDAO {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, date_commande);
             ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println("Coordonnées des clients qui ont passé une commande le " + date_commande);
-            afficherListeClientNoCommande(getListOfResultsClientNoCommande(resultSet));
+
+            ArrayList<Object> list = getListOfResultsClientNoCommande(resultSet);
+
+            if(list.isEmpty()) {
+                System.out.println("Il n'y a pas de commande en date du " + date_commande + ".\n");
+            } else {
+                System.out.println("Coordonnées des clients qui ont passé une commande le " + date_commande + " :");
+                afficherListeClientNoCommande(list);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

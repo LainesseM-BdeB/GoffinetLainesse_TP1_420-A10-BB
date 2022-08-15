@@ -9,19 +9,8 @@ import java.util.HashSet;
 
 public class ClientDAO extends ACommonDAO {
 
-    private Client client;
-
     public ClientDAO(Connection connection) {
         super(connection);
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    @Override
-    public Object create(Object object) {
-        return null;
     }
 
     @Override
@@ -33,7 +22,8 @@ public class ClientDAO extends ACommonDAO {
      * Mise à jour de l'objet "Client"
      * @param object article
      * @return true si l'objet a été mis à jour
-     */@Override
+     */
+    @Override
     public boolean update(Object object) {
 
         Client client = (Client) object;
@@ -55,7 +45,7 @@ public class ClientDAO extends ACommonDAO {
 
     @Override
     public Object findByID(int id) {
-         String query = "SELECT * FROM client WHERE no_client = " + id;
+        String query = "SELECT * FROM client WHERE no_client = " + id;
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -117,7 +107,7 @@ public class ClientDAO extends ACommonDAO {
     public void afficherListeClientSansCommande() {
          HashSet<Client> clientsSansCommande = this.getListeClientSansCommande();
 
-        System.out.println("\nListe des clients sans commandes (no_client, no_telephone");
+        System.out.println("\nListe des clients sans commande (no_client, no_telephone) :");
          for (Client client : clientsSansCommande) {
              System.out.printf("Client #%d - %s\n", client.getNo_client(), client.getNo_telephone());
          }

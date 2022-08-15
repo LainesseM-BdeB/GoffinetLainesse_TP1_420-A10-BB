@@ -13,11 +13,6 @@ public class DetailLivraisonDAO extends ACommonDAO{
     }
 
     @Override
-    public Object create(Object object) {
-        return null;
-    }
-
-    @Override
     public boolean delete(Object object) {
         return false;
     }
@@ -37,7 +32,7 @@ public class DetailLivraisonDAO extends ACommonDAO{
             preparedStatement.setInt(4, detailLivraison.getQuantiteLivree());
 
             preparedStatement.executeUpdate();
-            System.out.println("DetailLivraison Insérée.");
+            System.out.println("DetailLivraison insérée.");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,6 +42,15 @@ public class DetailLivraisonDAO extends ACommonDAO{
 
     @Override
     public Object findByID(int id) {
+        String query = "SELECT * FROM detail_livraison WHERE no_livraison = " + id;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            return resultSet;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

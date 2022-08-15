@@ -7,15 +7,8 @@ import java.util.ArrayList;
 
 public class ArticleDAO extends ACommonDAO {
 
-    private Article article;
-
     public ArticleDAO(Connection connection) {
         super(connection);
-    }
-
-    @Override
-    public Object create(Object object) {
-        return null;
     }
 
     @Override
@@ -52,8 +45,18 @@ public class ArticleDAO extends ACommonDAO {
 
     @Override
     public Object findByID(int id) {
+        String query = "SELECT * FROM article WHERE no_article = " + id;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            return resultSet;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
+
 
     @Override
     public ArrayList findAll() {
@@ -89,7 +92,7 @@ public class ArticleDAO extends ACommonDAO {
     }
 
     /**
-     * Affichage dans la console de la liste des articles
+     * Affichage dans la console de la liste des articles avec leurs différents paramètres
      * @param liste d'articles
      */
     @Override
@@ -118,8 +121,15 @@ public class ArticleDAO extends ACommonDAO {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, lettre + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println("Articles débutant par la lettre \"" + lettre + "\" :");
-            afficherListe(getListOfResults(resultSet));
+
+            ArrayList<Object> list = getListOfResults(resultSet);
+
+            if(list.isEmpty()) {
+                System.out.println("Il n'y a pas d'articles débutant par la lettre \"" + lettre + "\".\n");
+            } else {
+                System.out.println("Articles débutant par la lettre \"" + lettre + "\" :");
+                afficherListe(list);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -136,7 +146,7 @@ public class ArticleDAO extends ACommonDAO {
             preparedStatement = connection.prepareStatement(query);
 
             ResultSet resultSet = preparedStatement.executeQuery(query);
-            System.out.println("Articles dont le prix est supérieur à la moyenne");
+            System.out.println("Articles dont le prix est supérieur à la moyenne:");
             afficherListe(getListOfResults(resultSet));
         } catch (SQLException e) {
             e.printStackTrace();

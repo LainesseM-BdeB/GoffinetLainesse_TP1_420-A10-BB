@@ -15,11 +15,6 @@ public class LigneCommandeDAO extends ACommonDAO{
     }
 
     @Override
-    public Object create(Object object) {
-        return null;
-    }
-
-    @Override
     public boolean delete(Object object) {
         return false;
     }
@@ -37,7 +32,7 @@ public class LigneCommandeDAO extends ACommonDAO{
             preparedStatement.setInt(3, detailLivraison.getQuantite());
 
             preparedStatement.executeUpdate();
-            System.out.println("LigneCommande Insérée.");
+            System.out.println("LigneCommande insérée.");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,6 +42,15 @@ public class LigneCommandeDAO extends ACommonDAO{
 
     @Override
     public Object findByID(int id) {
+        String query = "SELECT * FROM ligne_commande WHERE no_commande = " + id;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            return resultSet;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

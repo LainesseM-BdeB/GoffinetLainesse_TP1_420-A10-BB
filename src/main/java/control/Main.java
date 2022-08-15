@@ -45,27 +45,27 @@ public class Main {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-
-        // Test pour l'insertion d'une nouvelle livraison dans la base de données
-        LivraisonDAO livraisonDAO = new LivraisonDAO(connection);
-        Livraison livraisonTestInsertion = new Livraison(106, LocalDate.now());
-        boolean success = livraisonDAO.update(livraisonTestInsertion);
-
-        if (!success) { // Si l'insertion ne fonctionne pas à cause d'un duplicata, le DAO supprime l'entrée et ajoute la nouvelle.
-            livraisonDAO.delete(livraisonTestInsertion);
-            livraisonDAO.update(livraisonTestInsertion);
-        }
-
-        //Recherche dans la BD la nouvelle insertion et affiche les informations si elle la trouve.
-        System.out.println(livraisonDAO.findByID(106));
-        System.out.println("Just a break"); //Juste une place ou mettre mon break
+//
+//        // Test pour l'insertion d'une nouvelle livraison dans la base de données
+//        LivraisonDAO livraisonDAO = new LivraisonDAO(connection);
+//        Livraison livraisonTestInsertion = new Livraison(106, LocalDate.now());
+//        boolean success = livraisonDAO.update(livraisonTestInsertion);
+//
+//        if (!success) { // Si l'insertion ne fonctionne pas à cause d'un duplicata, le DAO supprime l'entrée et ajoute la nouvelle.
+//            livraisonDAO.delete(livraisonTestInsertion);
+//            livraisonDAO.update(livraisonTestInsertion);
+//        }
+//
+//        //Recherche dans la BD la nouvelle insertion et affiche les informations si elle la trouve.
+//        System.out.println(livraisonDAO.findByID(106));
+//        System.out.println("Just a break"); //Juste une place ou mettre mon break
 
         // Tests de sélection (b.)
 
 
         ArticleDAO articleB = new ArticleDAO(connection);
         CommandeDAO commandeB = new CommandeDAO(connection);
-        ClientDAO clientDAO = new ClientDAO(connection);
+        ClientDAO clientB = new ClientDAO(connection);
         //1.
         commandeB.afficherCommandesClient(10, 5);
         //2.
@@ -77,6 +77,6 @@ public class Main {
         //5.
         commandeB.afficherListeCommandeAvecNoLivraison();
         //6.
-        clientDAO.afficherListeClientSansCommande();
+        clientB.afficherListeClientSansCommande();
     }
 }

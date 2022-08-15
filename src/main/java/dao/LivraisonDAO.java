@@ -12,11 +12,6 @@ public class LivraisonDAO extends ACommonDAO{
     }
 
     @Override
-    public Object create(Object object) {
-        return null;
-    }
-
-    @Override
     public boolean delete(Object object) {
         Livraison livraison = (Livraison) object;
 
@@ -55,7 +50,7 @@ public class LivraisonDAO extends ACommonDAO{
             preparedStatement.setDate(2, Date.valueOf(livraison.getDateLivraison()));
 
             preparedStatement.executeUpdate();
-            System.out.printf("Livraison #%s Insérée.\n", livraison.getNoLivraison());
+            System.out.printf("Livraison #%s insérée.\n", livraison.getNoLivraison());
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
