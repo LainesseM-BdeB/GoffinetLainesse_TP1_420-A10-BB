@@ -82,7 +82,11 @@ public class ClientDAO extends ACommonDAO {
         return clients;
     }
 
-    // pour question b-6
+    /**
+     *Question b-6 function qui trouve la liste des clients sans commandes en comparant la liste des clients et la liste
+     * des commandes. Elle retient alors les clients qui n'appraissent pas dans la liste des commandes.
+     * @return Liste de client sans commandes
+     */
     public HashSet<Client> getListeClientSansCommande() {
          CommandeDAO commandeDAO = new CommandeDAO(connection);
          ArrayList<Client> clients = this.findAll();
@@ -103,7 +107,9 @@ public class ClientDAO extends ACommonDAO {
          return clientsSansCommande;
     }
 
-    // pour question b-6
+    /**
+     * Affiche la liste des clients sans commande par leur no_client et no_telephone. Question b-6
+     */
     public void afficherListeClientSansCommande() {
          HashSet<Client> clientsSansCommande = this.getListeClientSansCommande();
 

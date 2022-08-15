@@ -58,7 +58,6 @@ public class CommandeDAO extends ACommonDAO {
         return null;
     }
 
-    //Servira pour la question b-5
     @Override
     public ArrayList<Commande> findAll() {
         ArrayList<Commande> commandes = new ArrayList<>();
@@ -84,7 +83,9 @@ public class CommandeDAO extends ACommonDAO {
         return commandes;
     }
 
-    //Servira pour la question b-5
+    /**
+     * Question b-5: Function qui affichera tout les numéros de livraison ordonné par numéro de commande.
+     */
     public void afficherListeCommandeAvecNoLivraison() {
         ArrayList<Commande> commandes = this.findAll();
         DetailLivraisonDAO detailLivraisonDAO = new DetailLivraisonDAO(connection);

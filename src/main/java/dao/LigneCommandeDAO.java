@@ -8,6 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Ceci est la classe DAO de "LigneCommande"
+ * @author Maxime Lainesse et Gaëlle Goffinet
+ * @since 2022/08/03
+ */
 public class LigneCommandeDAO extends ACommonDAO{
 
     public LigneCommandeDAO(Connection connection) {

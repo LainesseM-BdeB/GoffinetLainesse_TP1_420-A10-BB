@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+/**
+ * Ceci est la classe abstraite pour nos DAO"
+ * @author Maxime Lainesse et Gaëlle Goffinet
+ * @since 2022/08/03
+ */
 public abstract class ACommonDAO<T> {
 
     protected Connection connection;
@@ -14,11 +19,6 @@ public abstract class ACommonDAO<T> {
 
     public abstract boolean delete(T object);
 
-    /**
-     * Mise à jour de l'objet "Client"
-     * @param object article
-     * @return true si l'objet a été mis à jour
-     */
     public abstract boolean update(T object);
 
     public abstract T findByID(int id);

@@ -1,11 +1,15 @@
 package dao;
 
 import model.DetailLivraison;
-import model.Livraison;
 
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Ceci est la classe DAO de "DetailLivraison"
+ * @author Maxime Lainesse et Gaëlle Goffinet
+ * @since 2022/08/03
+ */
 public class DetailLivraisonDAO extends ACommonDAO{
 
     public DetailLivraisonDAO(Connection connection) {
@@ -42,12 +46,22 @@ public class DetailLivraisonDAO extends ACommonDAO{
 
     @Override
     public Object findByID(int id) {
-        String query = "SELECT * FROM detail_livraison WHERE no_livraison = " + id;
+        return null;
+    }
+
+    /**
+     * Cherche un détail de livraison selon son ID = no_livraison, no_commande et no_article
+     * @param id - no_livraison
+     * @param id2 - no_commande
+     * @param id3 - no_article
+     * @return Un résultat pour tout les match ou null
+     */
+    public Object findByNoLivraisonNoCommandeNoArticle(int id, int id2, int id3) {
+        String query = "SELECT * FROM detail_livraison WHERE no_livraison = " + id + " AND no_commande = " + id2 + " AND no_article = " + id3 + ";";
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery(query);
-            return resultSet;
+            return preparedStatement.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,6 +73,11 @@ public class DetailLivraisonDAO extends ACommonDAO{
         return null;
     }
 
+    /**
+     * Function qui retourne une liste de détail de livraison pour résoudre la question b-5 en cherchant les détails de livraison selon le no_commande
+     * @param id
+     * @return
+     */
     public ArrayList<DetailLivraison> findByIDCommande(int id) {
         ArrayList<DetailLivraison> detailLivraisons = new ArrayList<>();
 

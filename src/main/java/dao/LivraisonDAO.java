@@ -5,6 +5,11 @@ import model.Livraison;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Ceci est la classe DAO de "Livraison"
+ * @author Maxime Lainesse et Gaëlle Goffinet
+ * @since 2022/08/03
+ */
 public class LivraisonDAO extends ACommonDAO{
 
     public LivraisonDAO(Connection connection) {
