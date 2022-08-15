@@ -88,19 +88,19 @@ public class ClientDAO extends ACommonDAO {
          ArrayList<Client> clients = this.findAll();
          ArrayList<Commande> commandes = commandeDAO.findAll();
 
-        HashSet<Client> clientsSansCommande = new HashSet<>();
-        HashSet<Integer> noClientAvecCommande = new HashSet<>();
+         HashSet<Client> clientsSansCommande = new HashSet<>();
+         HashSet<Integer> noClientAvecCommande = new HashSet<>();
 
-        for (Commande commande : commandes) {
-            noClientAvecCommande.add(commande.getNo_client());
-        }
+         for (Commande commande : commandes) {
+             noClientAvecCommande.add(commande.getNo_client());
+         }
 
-        for (Client client : clients) {
-            if (!noClientAvecCommande.contains(client.getNo_client())) {
-                clientsSansCommande.add(client);
-            }
-        }
-        return clientsSansCommande;
+         for (Client client : clients) {
+             if (!noClientAvecCommande.contains(client.getNo_client())) {
+                 clientsSansCommande.add(client);
+             }
+         }
+         return clientsSansCommande;
     }
 
     // pour question b-6
