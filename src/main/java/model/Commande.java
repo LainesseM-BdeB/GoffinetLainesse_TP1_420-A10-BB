@@ -37,10 +37,6 @@ public class Commande {
         return no_client;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
     public void setNo_commande(int no_commande) {
         this.no_commande = no_commande;
     }
@@ -55,5 +51,15 @@ public class Commande {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    @Override
+    public String toString() {
+        return "Commande{" +
+                "no_commande=" + no_commande +
+                ", date_commande='" + date_commande + '\'' +
+                ", no_client=" + no_client +
+                ", client=" + client +
+                '}';
     }
 }

@@ -53,4 +53,14 @@ public class Article {
     public void setQuantite_en_stock(int quantite_en_stock) {
         this.quantite_en_stock = quantite_en_stock;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "no_article=" + no_article +
+                ", description='" + description + '\'' +
+                ", prix_unitaire=" + prix_unitaire +
+                ", quantite_en_stock=" + quantite_en_stock +
+                '}';
+    }
 }

@@ -43,20 +43,36 @@ public class ClientDAO extends ACommonDAO {
         }
     }
 
+    /**
+     * Recherche un client dans la table selon sa clé primaire
+     * @param id
+     * @return le client s'il existe dans la table
+     */
     @Override
     public Object findByID(int id) {
-        String query = "SELECT * FROM client WHERE no_client = " + id;
+        String query = "SELECT * FROM client WHERE no_client = ?;";
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery(query);
-            return resultSet;
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+            int no_client = resultSet.getInt("no_client");
+            String nom_client = resultSet.getString("nom_client");
+            String no_telephone = resultSet.getString("no_telephone");
+
+            return new Client(no_client, nom_client, no_telephone);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    /**
+     * Obtention de la liste de tous les clients de la table "client"
+     * @return liste des clients de la table "client"
+     */
     @Override
     public ArrayList<Client> findAll() {
         ArrayList<Client> clients = new ArrayList<>();
@@ -125,7 +141,7 @@ public class ClientDAO extends ACommonDAO {
      * @return liste des clients obtenus de la base de données
      */
     @Override
-    public ArrayList getListOfResults(ResultSet resultSet) {
+    protected ArrayList getListOfResults(ResultSet resultSet) {
         ArrayList<Object> clients = new ArrayList<>();
 
         while (true) {
@@ -151,7 +167,7 @@ public class ClientDAO extends ACommonDAO {
      * @param liste des clients
      */
     @Override
-    public void afficherListe(ArrayList liste) {
+    protected void afficherListe(ArrayList liste) {
         System.out.printf("\t %-10s | %-20s | %-20s\n", "No client", "Nom client", "No téléphone");
         for (Object object: liste) {
             Client client = (Client) object;
@@ -161,5 +177,12 @@ public class ClientDAO extends ACommonDAO {
             System.out.print("\n");
         }
         System.out.print("\n");
+    }
+
+    @Override
+    public String toString() {
+        return "ClientDAO{" +
+                "connection=" + connection +
+                '}';
     }
 }

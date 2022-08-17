@@ -47,4 +47,13 @@ public class Client {
     public void setNo_telephone(String no_telephone) {
         this.no_telephone = no_telephone;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "no_client=" + no_client +
+                ", nom_client='" + nom_client + '\'' +
+                ", no_telephone='" + no_telephone + '\'' +
+                '}';
+    }
 }

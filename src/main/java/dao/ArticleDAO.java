@@ -1,6 +1,7 @@
 package dao;
 
 import model.Article;
+import model.Commande;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class ArticleDAO extends ACommonDAO {
      */
     @Override
     public boolean update(Object object) {
-
         Article article = (Article) object;
         String query = "INSERT INTO article VALUES (?, ?, ?, ?);";
         PreparedStatement preparedStatement = null;
@@ -43,14 +43,27 @@ public class ArticleDAO extends ACommonDAO {
         }
     }
 
+    /**
+     * Recherche un article dans la table selon sa clé primaire
+     * @param id
+     * @return l'article s'il existe dans la table
+     */
     @Override
     public Object findByID(int id) {
-        String query = "SELECT * FROM article WHERE no_article = " + id;
+        String query = "SELECT * FROM article WHERE no_article = ?;";
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery(query);
-            return resultSet;
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+            int no_article = resultSet.getInt("no_article");
+            String description = resultSet.getString("description");
+            double prix_unitaire = resultSet.getDouble("prix_unitaire");
+            int quantite_en_stock = resultSet.getInt("quantite_en_stock");
+
+            return new Article(no_article, description, prix_unitaire, quantite_en_stock);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,7 +82,7 @@ public class ArticleDAO extends ACommonDAO {
      * @return liste des articles obtenus de la base de données
      */
     @Override
-    public ArrayList<Object> getListOfResults(ResultSet resultSet) {
+    protected ArrayList<Object> getListOfResults(ResultSet resultSet) {
         ArrayList<Object> articles = new ArrayList<>();
 
         while (true) {
@@ -96,8 +109,9 @@ public class ArticleDAO extends ACommonDAO {
      * @param liste d'articles
      */
     @Override
-    public void afficherListe(ArrayList liste) {
-        System.out.printf("\t %-10s | %-20s | %-15s | %-10s\n", "No article", "Description", "Prix unitaire", "Quantité en stock");
+    protected void afficherListe(ArrayList liste) {
+        System.out.printf("\t %-10s | %-20s | %-15s | %-10s\n", "No article", "Description", "Prix unitaire",
+                "Quantité en stock");
         for (Object object: liste) {
             Article article = (Article) object;
             System.out.printf("\t %-10d | ", article.getNo_article());
@@ -110,6 +124,7 @@ public class ArticleDAO extends ACommonDAO {
     }
 
     /**
+     * Question b-3
      * Affichage de la liste des articles débutant par une lettre ciblée
      * @param lettre ciblée
      */
@@ -136,6 +151,7 @@ public class ArticleDAO extends ACommonDAO {
     }
 
     /**
+     * Question b-4
      * Affichage de la liste des articles dont le prix est supérieur à la moyenne
      */
     public void afficherArticlesPrixSuperieurAMoyenne() {

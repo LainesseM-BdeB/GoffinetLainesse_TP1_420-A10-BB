@@ -108,12 +108,12 @@ public class DetailLivraisonDAO extends ACommonDAO{
     }
 
     @Override
-    public ArrayList getListOfResults(ResultSet resultSet) {
+    protected ArrayList getListOfResults(ResultSet resultSet) {
         return null;
     }
 
     @Override
-    public void afficherListe(ArrayList liste) {
+    protected void afficherListe(ArrayList liste) {
 
     }
 }

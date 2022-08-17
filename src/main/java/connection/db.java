@@ -17,7 +17,7 @@ public class db {
         try {
             String url = "jdbc:mysql://localhost:3306/vente";
             String username = "root";
-            String password = "";
+            String password = "Philosophie0883";
             connection = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             throw new RuntimeException(e);
