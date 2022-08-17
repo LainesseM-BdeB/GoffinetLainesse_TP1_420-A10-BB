@@ -1,4 +1,4 @@
-package utils;
+package connection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class db {
         try {
             String url = "jdbc:mysql://localhost:3306/vente";
             String username = "root";
-            String password = "Philosophie0883";
+            String password = "^5R7&R737#MJ8&B!*r$qF&46";
             connection = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             throw new RuntimeException(e);

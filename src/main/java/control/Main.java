@@ -46,17 +46,17 @@ public class Main {
 
         // Test pour l'insertion d'une nouvelle ligne de commande
         LigneCommandeDAO ligneCommandeDAO = new LigneCommandeDAO(connection);
-        LigneCommande ligneCommandeTestInsertion = new LigneCommande(999, 1, 999);
+        LigneCommande ligneCommandeTestInsertion = new LigneCommande(9, 1, 999);
         ligneCommandeDAO.update(ligneCommandeTestInsertion);
         //Recherche dans la BD la nouvelle insertion et affiche les informations si elle la trouve.
-        System.out.println(ligneCommandeDAO.findByID(999) + "\n");
+        System.out.println(ligneCommandeDAO.findByNoCommandeNoArticle(999, 1) + "\n");
 
         // Test pour l'insertion d'un nouveau détail de livraison
         DetailLivraisonDAO detailLivraisonDAO = new DetailLivraisonDAO(connection);
         DetailLivraison detailLivraisonTestInsertion = new DetailLivraison(999, 1, 1, 999);
         detailLivraisonDAO.update(detailLivraisonTestInsertion);
         //Recherche dans la BD la nouvelle insertion et affiche les informations si elle la trouve.
-        System.out.println(detailLivraisonDAO.findByID(999) + "\n");
+        System.out.println(detailLivraisonDAO.findByNoLivraisonNoCommandeNoArticle(999, 1, 1) + "\n");
 
 
         // Tests de sélection (b.)

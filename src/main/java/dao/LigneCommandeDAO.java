@@ -59,6 +59,26 @@ public class LigneCommandeDAO extends ACommonDAO{
         return null;
     }
 
+    /**
+     * Cherche un détail de ligne selon son ID = no_commande et no_article
+     * @param id - no_commande
+     * @param id2 - no_article
+     * @return Un résultat pour tout les match ou null
+     */
+    public Object findByNoCommandeNoArticle(int id, int id2) {
+        String query = "SELECT * FROM detail_livraison WHERE no_commande = ? AND no_article = ?;";
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, id);
+            return preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public ArrayList findAll() {
         return null;

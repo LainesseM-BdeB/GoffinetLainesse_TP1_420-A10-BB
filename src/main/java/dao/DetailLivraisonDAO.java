@@ -57,11 +57,14 @@ public class DetailLivraisonDAO extends ACommonDAO{
      * @return Un résultat pour tout les match ou null
      */
     public Object findByNoLivraisonNoCommandeNoArticle(int id, int id2, int id3) {
-        String query = "SELECT * FROM detail_livraison WHERE no_livraison = " + id + " AND no_commande = " + id2 + " AND no_article = " + id3 + ";";
+        String query = "SELECT * FROM detail_livraison WHERE no_livraison = ? AND no_commande = ? AND no_article = ?;";
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(query);
-            return preparedStatement.executeQuery(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, id2);
+            preparedStatement.setInt(3, id3);
+            return preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
