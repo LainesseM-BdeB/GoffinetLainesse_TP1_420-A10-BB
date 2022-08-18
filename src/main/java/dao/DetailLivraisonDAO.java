@@ -64,7 +64,17 @@ public class DetailLivraisonDAO extends ACommonDAO{
             preparedStatement.setInt(1, id);
             preparedStatement.setInt(2, id2);
             preparedStatement.setInt(3, id3);
-            return preparedStatement.executeQuery();
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DetailLivraison detailLivraison = new DetailLivraison();
+            resultSet.next();
+            detailLivraison.setNoLivraison(resultSet.getInt(1));
+            detailLivraison.setNoCommande(resultSet.getInt(2));
+            detailLivraison.setNoArticle(resultSet.getInt(3));
+            detailLivraison.setQuantiteLivree(resultSet.getInt(4));
+
+            return detailLivraison;
         } catch (SQLException e) {
             e.printStackTrace();
         }

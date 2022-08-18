@@ -44,4 +44,13 @@ public class LigneCommande {
     public void setQuantite(int quantite) {
         this.quantite = quantite;
     }
+
+    @Override
+    public String toString() {
+        return "LigneCommande{" +
+                "noCommande=" + noCommande +
+                ", noArticle=" + noArticle +
+                ", quantite=" + quantite +
+                '}';
+    }
 }

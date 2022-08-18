@@ -54,4 +54,14 @@ public class DetailLivraison {
     public void setQuantiteLivree(int quantiteLivree) {
         this.quantiteLivree = quantiteLivree;
     }
+
+    @Override
+    public String toString() {
+        return "DetailLivraison{" +
+                "noLivraison=" + noLivraison +
+                ", noCommande=" + noCommande +
+                ", noArticle=" + noArticle +
+                ", quantiteLivree=" + quantiteLivree +
+                '}';
+    }
 }

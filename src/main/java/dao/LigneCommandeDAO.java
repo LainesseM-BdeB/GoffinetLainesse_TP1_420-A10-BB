@@ -1,5 +1,6 @@
 package dao;
 
+import model.DetailLivraison;
 import model.LigneCommande;
 
 import java.sql.Connection;
@@ -66,13 +67,22 @@ public class LigneCommandeDAO extends ACommonDAO{
      * @return Un résultat pour tout les match ou null
      */
     public Object findByNoCommandeNoArticle(int id, int id2) {
-        String query = "SELECT * FROM detail_livraison WHERE no_commande = ? AND no_article = ?;";
+        String query = "SELECT * FROM ligne_commande WHERE no_commande = ? AND no_article = ?;";
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, id);
-            return preparedStatement.executeQuery();
+            preparedStatement.setInt(2, id2);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            LigneCommande ligneCommande = new LigneCommande();
+            resultSet.next();
+            ligneCommande.setNoCommande(resultSet.getInt(1));
+            ligneCommande.setNoArticle(resultSet.getInt(2));
+            ligneCommande.setQuantite(resultSet.getInt(3));
+
+            return ligneCommande;
         } catch (SQLException e) {
             e.printStackTrace();
         }
